@@ -7,3 +7,4 @@ This repository contains:
 -Contact.vcf
 
 Used for NFC tag linking (Android & iOS compatible).
+
