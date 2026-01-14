@@ -33,14 +33,15 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html, body { height: 100%; overflow: hidden; }
+
     body {
       font-family: 'Outfit', sans-serif;
       background: var(--bg-primary);
-      min-height: 100vh;
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 20px;
+      padding: 16px;
     }
 
     body::before {
@@ -59,7 +60,7 @@
       max-width: 380px;
       background: var(--bg-card);
       border-radius: 20px;
-      padding: 32px 28px;
+      padding: 24px 24px;
       box-shadow: var(--shadow-card);
       border: 1px solid var(--border-subtle);
       overflow: hidden;
@@ -85,21 +86,21 @@
     .logo-container {
       display: flex;
       justify-content: center;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
       animation: fadeIn 0.6s ease-out 0.1s both;
     }
 
-    .logo { height: 40px; width: auto; }
+    .logo { height: 32px; width: auto; }
 
     .photo-container {
       display: flex;
       justify-content: center;
-      margin-bottom: 16px;
+      margin-bottom: 12px;
       animation: fadeIn 0.6s ease-out 0.15s both;
     }
 
     .photo {
-      width: 100px; height: 100px;
+      width: 80px; height: 80px;
       border-radius: 50%;
       object-fit: cover;
       border: 3px solid var(--accent);
@@ -111,7 +112,7 @@
 
     .header {
       text-align: center;
-      margin-bottom: 28px;
+      margin-bottom: 16px;
       animation: fadeIn 0.6s ease-out 0.2s both;
     }
 
@@ -121,15 +122,15 @@
     }
 
     .name {
-      font-size: 1.75rem;
+      font-size: 1.5rem;
       font-weight: 700;
       color: var(--text-primary);
       letter-spacing: -0.02em;
-      margin-bottom: 6px;
+      margin-bottom: 4px;
     }
 
     .title {
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 500;
       color: var(--accent);
       letter-spacing: 0.02em;
@@ -138,28 +139,28 @@
     .divider {
       height: 1px;
       background: linear-gradient(90deg, transparent, var(--border-subtle), var(--accent), var(--border-subtle), transparent);
-      margin: 0 -28px 24px;
+      margin: 0 -24px 16px;
       animation: fadeIn 0.6s ease-out 0.25s both;
     }
 
-    .actions { display: flex; flex-direction: column; gap: 12px; }
+    .actions { display: flex; flex-direction: column; gap: 8px; }
 
     .btn {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 12px;
-      padding: 16px 20px;
-      border-radius: 12px;
+      gap: 10px;
+      padding: 12px 16px;
+      border-radius: 10px;
       text-decoration: none;
-      font-size: 0.95rem;
+      font-size: 0.9rem;
       font-weight: 600;
       letter-spacing: 0.01em;
       transition: all 0.25s ease;
       border: 1px solid var(--border-subtle);
     }
 
-    .btn svg { width: 20px; height: 20px; flex-shrink: 0; transition: transform 0.25s ease; }
+    .btn svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.25s ease; }
     .btn:hover svg { transform: scale(1.1); }
     .btn:active { transform: scale(0.96); transition: transform 0.1s ease; }
 
