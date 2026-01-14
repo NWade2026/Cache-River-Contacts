@@ -4,27 +4,70 @@
   <meta charset="UTF-8">
   <title>Nicolas Wade</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <style>
-    body { font-family: Arial, sans-serif; background:#f4f4f4; margin:0; padding:0; }
-    .card { max-width:400px; margin:40px auto; background:#fff; padding:20px; border-radius:10px; box-shadow:0 4px 10px rgba(0,0,0,0.1); text-align:center; }
-    h1 { margin-bottom:5px; }
-    p { color:#555; margin-top:0; }
-    a.button { display:block; margin:12px 0; padding:12px; text-decoration:none; color:white; background:#007bff; border-radius:6px; font-size:16px; }
-    a.button.secondary { background:#28a745; }
-    a.button.dark { background:#333; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    .card {
+      max-width: 400px;
+      margin: 40px auto;
+      background: #ffffff;
+      padding: 25px;
+      border-radius: 12px;
+      box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+      text-align: center;
+    }
+
+    .logo {
+      width: 130px;
+      height: auto;
+      margin-bottom: 15px;
+    }
+
+    h1 {
+      margin: 10px 0 5px;
+    }
+
+    p {
+      margin: 0 0 20px;
+      color: #555;
+    }
+
+    a.button {
+      display: block;
+      margin: 10px 0;
+      padding: 14px;
+      text-decoration: none;
+      color: #ffffff;
+      background: #007bff;
+      border-radius: 8px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    a.button.green { background: #28a745; }
+    a.button.dark { background: #333333; }
   </style>
 </head>
+
 <body>
 
-<div class="card">
-  <h1>Nicolas Wade</h1>
-  <p> Cache River Mill & MetalWorks</p></p>
+  <div class="card">
+    <img src="logo.png" alt="Company Logo" class="logo">
 
-  <a class="button" href="contact.vcf">➕ Add to Contacts</a>
-  <a class="button secondary" href="tel:8709413221">📞 Call</a>
-  <a class="button secondary" href="sms:8709413221">💬 Text</a>
-  <a class="button dark" href="NWade@CacheRiverMill.com">✉️ Email</a>
-</div>
+    <h1>Nicolas Wade</h1>
+    <p>Whiskey River Customs</p>
+
+    <a class="button" href="contact.vcf">➕ Add to Contacts</a>
+    <a class="button green" href="tel:15015551234">📞 Call</a>
+    <a class="button green" href="sms:15015551234">💬 Text</a>
+    <a class="button dark" href="mailto:nic@example.com">✉️ Email</a>
+  </div>
 
 </body>
 </html>
