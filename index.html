@@ -42,10 +42,6 @@ html, body { width:100%; overflow-x:hidden; }
 body {
   font-family: 'Outfit', sans-serif;
   background: var(--bg-primary);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
   padding: 16px;
   min-height: 100%;
   overflow-y: auto;
@@ -71,24 +67,32 @@ body::before {
   padding: 24px;
   box-shadow: var(--shadow-card);
   border: 1px solid var(--border-subtle);
-  overflow: visible; /* ensures buttons show */
   margin-bottom: 40px;
+  overflow: visible;
 }
 
 .logo-container { display: flex; justify-content: center; margin-bottom:16px; }
 .logo { height:32px; width:auto; }
+
 .photo-container { display:flex; justify-content:center; margin-bottom:12px; max-width:100%; }
-.photo { width:80px; height:80px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); background: var(--bg-card-inner);}
+.photo { width:80px; max-width:100%; height:auto; border-radius:50%; object-fit:cover; border:3px solid var(--accent); background: var(--bg-card-inner); }
+
 .header { text-align:center; margin-bottom:16px; }
 .name { font-size:1.5rem; font-weight:700; color: var(--text-primary); margin-bottom:4px;}
 .title { font-size:0.85rem; font-weight:500; color: var(--accent);}
 .divider { height:1px; background: linear-gradient(90deg, transparent, var(--border-subtle), var(--accent), var(--border-subtle), transparent); margin:0 -24px 16px;}
 
 /* --- Buttons --- */
-.actions { display:flex; flex-direction:column; gap:8px; position:relative; z-index:10; } /* ensures buttons always visible */
+.actions {
+  position: sticky;  /* sticky ensures buttons stay on top */
+  top: 16px;
+  z-index: 20;       /* above images */
+  display:flex;
+  flex-direction: column;
+  gap:8px;
+}
+
 .btn { padding:12px 16px; border-radius:10px; text-decoration:none; font-size:0.9rem; font-weight:600; display:flex; align-items:center; justify-content:center; gap:10px; border:1px solid var(--border-subtle);}
-.btn svg { width:18px; height:18px; flex-shrink:0; transition: transform 0.25s; }
-.btn:hover svg { transform: scale(1.1); }
 .btn:active { transform: scale(0.96); transition: transform 0.1s ease; }
 .btn-contact { background: var(--accent); color:#1a1a1a; border:none; }
 .btn-contact:hover { background: var(--accent-hover); }
@@ -109,9 +113,8 @@ body::before {
 
 /* --- Mobile adjustments --- */
 @media (max-width:600px){
-  .card { max-width: 100%; }
+  .card { max-width:100%; }
   .photo { max-width:60px; height:auto; }
-  .actions { flex-direction: column; z-index:10; position:relative; }
   .overlay { transform: translateY(0); } /* always show overlay on mobile */
 }
 </style>
