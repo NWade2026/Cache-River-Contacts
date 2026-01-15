@@ -14,7 +14,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* --- Your existing CSS here --- */
     :root {
       --bg-primary: #052038;
       --bg-card: #074975;
@@ -31,34 +30,42 @@
       --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
       --noise-opacity: 0.015;
 
-      /* Gallery colors */
       --gallery-overlay: rgba(0,0,0,0.6);
       --gallery-title: #ffffff;
       --gallery-text: rgba(255,255,255,0.85);
     }
 
-    /* --- Existing reset, body, card styles --- */
     * { margin:0; padding:0; box-sizing:border-box; }
-    html, body { height: 100%; overflow-x: hidden; }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow-x: hidden;
+    }
+
     body {
       font-family: 'Outfit', sans-serif;
       background: var(--bg-primary);
       display: flex;
-      flex-direction: column;
+      flex-direction: column;      /* stack vertically */
       align-items: center;
-      justify-content: flex-start;
+      justify-content: flex-start; /* top alignment */
       padding: 16px;
       min-height: 100vh;
+      overflow-y: auto;            /* allow vertical scroll */
     }
+
     body::before {
       content: "";
       position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       opacity: var(--noise-opacity);
       pointer-events: none;
       background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     }
 
+    /* --- Card --- */
     .card {
       position: relative;
       width: 100%;
@@ -69,89 +76,48 @@
       box-shadow: var(--shadow-card);
       border: 1px solid var(--border-subtle);
       overflow: hidden;
-      animation: cardReveal 0.6s ease-out;
-      margin-bottom: 40px;
+      margin-bottom: 40px;  /* space before gallery */
     }
 
-    /* --- Other existing CSS omitted for brevity --- */
+    /* --- Card content simplified for brevity --- */
+    .logo-container { display: flex; justify-content: center; margin-bottom:16px; }
+    .logo { height:32px; width:auto; }
+    .photo-container { display:flex; justify-content:center; margin-bottom:12px; }
+    .photo { width:80px; height:80px; border-radius:50%; object-fit:cover; border:3px solid var(--accent); background: var(--bg-card-inner);}
+    .header { text-align:center; margin-bottom:16px; }
+    .name { font-size:1.5rem; font-weight:700; color: var(--text-primary); margin-bottom:4px;}
+    .title { font-size:0.85rem; font-weight:500; color: var(--accent);}
+    .divider { height:1px; background: linear-gradient(90deg, transparent, var(--border-subtle), var(--accent), var(--border-subtle), transparent); margin:0 -24px 16px;}
+    .actions { display:flex; flex-direction:column; gap:8px; }
+    .btn { padding:12px 16px; border-radius:10px; text-decoration:none; font-size:0.9rem; font-weight:600; display:flex; align-items:center; justify-content:center; gap:10px; border:1px solid var(--border-subtle);}
+    .btn-contact { background: var(--accent); color:#1a1a1a; border:none; }
+    .btn-secondary { background: var(--btn-secondary); color: var(--btn-secondary-text);}
+    .website-link { display:block; text-align:center; margin-top:16px; font-size:0.9rem; font-weight:500; color:var(--accent); text-decoration:none;}
+    .footer-accent { position:absolute; bottom:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity:0.6; }
 
-    /* --- Project Gallery Styles --- */
-    #project-gallery {
-      width: 100%;
-      max-width: 1000px;
-      margin: 40px 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
+    /* --- Project Gallery --- */
+    #project-gallery { width:100%; max-width:1000px; display:flex; flex-direction:column; align-items:center; margin-bottom:40px;}
+    #project-gallery h2 { color: var(--accent); font-size:1.8rem; margin-bottom:24px;}
+    .gallery { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; width:100%; }
+    .project { position:relative; overflow:hidden; border-radius:16px; cursor:pointer; box-shadow: var(--shadow-card); border:1px solid var(--border-subtle); transition: transform 0.3s;}
+    .project img { width:100%; display:block; transition: transform 0.3s;}
+    .project:hover img { transform: scale(1.05); }
+    .overlay { position:absolute; bottom:0; width:100%; padding:12px; background: var(--gallery-overlay); color: var(--gallery-text); transform:translateY(100%); transition: transform 0.3s;}
+    .project:hover .overlay { transform:translateY(0);}
+    .overlay h3 { margin-bottom:4px; color: var(--gallery-title);}
+
+    /* --- Dark mode --- */
+    body.dark { --bg-primary:#0a1a2e; --bg-card:#0d2a44; --bg-card-inner:#14405e; --text-primary:#f0f0f0; --text-secondary: rgba(255,255,255,0.8); --gallery-overlay: rgba(0,0,0,0.7);}
+    
+    /* Mobile tweaks */
+    @media (max-width:600px){
+      .overlay { transform: translateY(0); } /* always show overlay on small screens */
+      .card { max-width: 100%; }
     }
-
-    #project-gallery h2 {
-      color: var(--accent);
-      font-size: 1.8rem;
-      margin-bottom: 24px;
-    }
-
-    .gallery {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      width: 100%;
-    }
-
-    .project {
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      cursor: pointer;
-      box-shadow: var(--shadow-card);
-      border: 1px solid var(--border-subtle);
-      transition: transform 0.3s;
-    }
-
-    .project img {
-      width: 100%;
-      display: block;
-      transition: transform 0.3s;
-    }
-
-    .project:hover img {
-      transform: scale(1.05);
-    }
-
-    .overlay {
-      position: absolute;
-      bottom: 0;
-      background: var(--gallery-overlay);
-      color: var(--gallery-text);
-      width: 100%;
-      padding: 12px;
-      transform: translateY(100%);
-      transition: transform 0.3s;
-    }
-
-    .project:hover .overlay {
-      transform: translateY(0);
-    }
-
-    .overlay h3 {
-      margin-bottom: 4px;
-      color: var(--gallery-title);
-    }
-
-    /* Dark mode */
-    body.dark {
-      --bg-primary: #0a1a2e;
-      --bg-card: #0d2a44;
-      --bg-card-inner: #14405e;
-      --text-primary: #f0f0f0;
-      --text-secondary: rgba(255,255,255,0.8);
-      --gallery-overlay: rgba(0,0,0,0.7);
-    }
-
   </style>
 </head>
 <body>
-  <!-- Existing Card -->
+  <!-- --- Contact Card --- -->
   <div class="card">
     <div class="content">
       <div class="logo-container">
@@ -170,7 +136,7 @@
       <div class="divider"></div>
 
       <div class="actions">
-        <!-- buttons omitted for brevity (existing code) -->
+        <!-- buttons here (contact, call, sms, email) -->
       </div>
 
       <a href="https://cacherivermill.com" target="_blank" class="website-link">cacherivermill.com</a>
@@ -178,7 +144,7 @@
     <div class="footer-accent"></div>
   </div>
 
-  <!-- --- New Project Gallery Section --- -->
+  <!-- --- Project Gallery --- -->
   <section id="project-gallery">
     <h2>Project Gallery</h2>
     <div class="gallery">
@@ -201,13 +167,11 @@
   </section>
 
   <script>
-    // Dark mode toggle (optional: attach to a button if you want)
-    // Example: toggle with 'D' key
+    // Optional: Dark mode toggle on 'D' key
     document.addEventListener('keydown', e => {
-      if(e.key.toLowerCase() === 'd') {
-        document.body.classList.toggle('dark');
-      }
+      if(e.key.toLowerCase() === 'd') document.body.classList.toggle('dark');
     });
   </script>
 </body>
 </html>
+
