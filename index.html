@@ -113,13 +113,13 @@ body {
 #modal { display:none; position:fixed; z-index:9999; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); justify-content:center; align-items:center; padding:16px; }
 #modal img { max-width:90%; max-height:90%; border-radius:16px; box-shadow:0 25px 50px -12px rgba(0,0,0,0.7); object-fit:contain; }
 
-/* ---------------- NFC ICON ---------------- */
+/* ---------------- NFC ICON WITH PULSING CHECKMARK ---------------- */
 .nfc-icon {
   position:absolute;
   bottom:-12px;
   right:16px;
-  width:50px;
-  height:50px;
+  width:45px;  /* 10% smaller */
+  height:45px;
   background:var(--accent);
   border-radius:50%;
   display:flex;
@@ -127,67 +127,49 @@ body {
   align-items:center;
   color:#1a1a1a;
   font-weight:700;
-  font-size:18px;
+  font-size:16px;
   box-shadow:0 0 12px var(--accent);
-  animation: pulse 1.5s infinite;
   cursor:pointer;
   overflow:hidden;
-  position:relative;
 }
 
-@keyframes pulse {
-  0% { transform: scale(0.85); opacity:0.6; }
-  50% { transform: scale(1.15); opacity:1; }
-  100% { transform: scale(0.85); opacity:0.6; }
-}
-
-/* ---------------- RIPPLE ELEMENT ---------------- */
-.nfc-ripple {
-  position:absolute;
-  width:100%;
-  height:100%;
-  border-radius:50%;
-  background:rgba(212,168,75,0.4);
-  pointer-events:none;
-  transform:scale(0);
-  opacity:0;
-  animation:none;
-}
-.nfc-ripple.animate {
-  animation: rippleEffect 0.6s ease-out forwards;
-}
-@keyframes rippleEffect {
-  0% { transform:scale(0); opacity:0.5; }
-  50% { transform:scale(2); opacity:0.3; }
-  100% { transform:scale(2.5); opacity:0; }
-}
-
-/* ---------------- CHECKMARK ---------------- */
 .nfc-check {
   position:absolute;
   width:100%;
   height:100%;
   border-radius:50%;
-  top:0;
-  left:0;
   display:flex;
   justify-content:center;
   align-items:center;
-  color:#FFD700; /* bright gold */
-  font-size:26px; /* bigger */
+  color:#FFD700;
+  font-size:26px;
   font-weight:bold;
-  text-shadow:0 0 6px #FFD700, 0 0 12px #FFD700;
-  opacity:0;
-  pointer-events:none;
-  transform:scale(0);
-  transition: opacity 0.3s ease, transform 0.3s ease;
+  text-shadow:0 0 6px #FFD700,0 0 12px #FFD700;
+  animation: pulseCheck 1.5s infinite;
 }
-.nfc-check.show { opacity:1; transform:scale(1.2); animation: glowCheck 0.6s ease-out; }
 
-@keyframes glowCheck {
-  0% { transform:scale(0.5); opacity:0; }
-  50% { transform:scale(1.3); opacity:1; }
-  100% { transform:scale(1.2); opacity:1; }
+@keyframes pulseCheck {
+  0% { transform:scale(1); opacity:1; }
+  50% { transform:scale(1.2); opacity:0.9; }
+  100% { transform:scale(1); opacity:1; }
+}
+
+/* Glow pulse behind checkmark */
+.nfc-glow {
+  position:absolute;
+  width:120%;
+  height:120%;
+  border-radius:50%;
+  background:rgba(212,168,75,0.4);
+  top:-10%;
+  left:-10%;
+  animation: glowPulse 1.5s infinite;
+}
+
+@keyframes glowPulse {
+  0% { transform:scale(0.8); opacity:0.3; }
+  50% { transform:scale(1.2); opacity:0.15; }
+  100% { transform:scale(0.8); opacity:0.3; }
 }
 
 /* ---------------- MEDIA ---------------- */
@@ -199,7 +181,6 @@ body {
 }
 </style>
 </head>
-
 <body>
 
 <!-- CONTACT CARD -->
@@ -228,9 +209,10 @@ body {
 
   <a href="https://cacherivermill.com" target="_blank" class="website-link">cacherivermill.com</a>
 
-  <!-- NFC Pulse Icon -->
-  <div class="nfc-icon" id="nfc-icon">NFC
-    <span class="nfc-check" id="nfc-check">&#10003;</span>
+  <!-- NFC Icon with pulsing check -->
+  <div class="nfc-icon">
+    <div class="nfc-glow"></div>
+    <span class="nfc-check">&#10003;</span>
   </div>
 </div>
 
@@ -282,36 +264,18 @@ const observer = new IntersectionObserver((entries) => {
 
 projects.forEach(project => observer.observe(project));
 
-// ---------------- LIGHTBOX MODAL ----------------
+// Modal lightbox
 const modal = document.getElementById('modal');
 const modalImg = modal.querySelector('img');
-
 projects.forEach(project => {
   project.addEventListener('click', () => {
-    modal.style.display = 'flex';
-    modalImg.src = project.querySelector('img').src;
+    modal.style.display='flex';
+    modalImg.src=project.querySelector('img').src;
   });
 });
-
 modal.addEventListener('click', () => {
-  modal.style.display = 'none';
-  modalImg.src = '';
-});
-
-// ---------------- NFC TAP EFFECT WITH CHECK ----------------
-const nfcIcon = document.getElementById('nfc-icon');
-const nfcCheck = document.getElementById('nfc-check');
-
-nfcIcon.addEventListener('click', () => {
-  // create ripple element
-  const ripple = document.createElement('span');
-  ripple.classList.add('nfc-ripple', 'animate');
-  nfcIcon.appendChild(ripple);
-  ripple.addEventListener('animationend', () => ripple.remove());
-
-  // show checkmark briefly with animation
-  nfcCheck.classList.add('show');
-  setTimeout(() => nfcCheck.classList.remove('show'), 1000);
+  modal.style.display='none';
+  modalImg.src='';
 });
 </script>
 
