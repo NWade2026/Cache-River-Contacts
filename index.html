@@ -58,20 +58,10 @@ body {
   margin-bottom:32px;
 }
 
-.logo-container {
-  display:flex;
-  justify-content:center;
-  margin-bottom:16px;
-}
+.logo-container { display:flex; justify-content:center; margin-bottom:16px; }
 .logo { height:32px; }
 
-.photo-container {
-  display:flex;
-  justify-content:center;
-  margin-bottom:12px;
-  min-height:0;
-}
-
+.photo-container { display:flex; justify-content:center; margin-bottom:12px; min-height:0; }
 .photo {
   width:80px;
   height:80px;
@@ -92,12 +82,7 @@ body {
 }
 
 /* ---------------- BUTTONS ---------------- */
-.actions {
-  display:flex;
-  flex-direction:column;
-  gap:8px;
-}
-
+.actions { display:flex; flex-direction:column; gap:8px; }
 .btn {
   padding:12px 16px;
   border-radius:10px;
@@ -109,25 +94,9 @@ body {
   align-items:center;
   border:1px solid var(--border-subtle);
 }
-
-.btn-contact {
-  background:var(--accent);
-  color:#1a1a1a;
-  border:none;
-}
-
-.btn-secondary {
-  background:rgba(255,255,255,.15);
-  color:#ffffff;
-}
-
-.website-link {
-  display:block;
-  text-align:center;
-  margin-top:16px;
-  color:var(--accent);
-  text-decoration:none;
-}
+.btn-contact { background:var(--accent); color:#1a1a1a; border:none; }
+.btn-secondary { background:rgba(255,255,255,.15); color:#ffffff; }
+.website-link { display:block; text-align:center; margin-top:16px; color:var(--accent); text-decoration:none; }
 
 /* ---------------- GIF SECTION ---------------- */
 .gif-wrapper {
@@ -139,8 +108,6 @@ body {
   box-shadow:var(--shadow-card);
   border:1px solid var(--border-subtle);
 }
-
-/* GIF image fade-in handled via class */
 .gif-wrapper img {
   width:100%;
   max-height:320px;
@@ -150,31 +117,15 @@ body {
   opacity:0;
   transform:translateY(20px);
 }
-
-.gif-wrapper img.loaded {
-  opacity:1;
-  transform:translateY(0);
-}
+.gif-wrapper img.loaded { opacity:1; transform:translateY(0); }
 
 /* ---------------- GALLERY ---------------- */
-#project-gallery {
-  width:100%;
-  max-width:1000px;
-  text-align:center;
-}
-
-#project-gallery h2 {
-  color:var(--accent);
-  margin-bottom:24px;
-}
-
-.gallery {
-  display:grid;
-  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
-  gap:16px;
-}
+#project-gallery { width:100%; max-width:1000px; text-align:center; }
+#project-gallery h2 { color:var(--accent); margin-bottom:24px; }
+.gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
 
 .project {
+  position:relative;
   border-radius:16px;
   overflow:hidden;
   border:1px solid var(--border-subtle);
@@ -183,26 +134,40 @@ body {
   transform:translateY(20px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-
-.project.visible {
-  opacity:1;
-  transform:translateY(0);
-}
+.project.visible { opacity:1; transform:translateY(0); }
 
 .project img {
   width:100%;
   display:block;
   transition: transform 0.3s ease;
 }
+.project:hover img { transform:scale(1.05); }
 
-.project img:hover {
-  transform:scale(1.05);
+/* ---------------- HOVER OVERLAY ---------------- */
+.project-overlay {
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.4);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#fff;
+  font-weight:600;
+  font-size:1rem;
+  opacity:0;
+  transition:opacity 0.3s ease;
 }
+.project:hover .project-overlay { opacity:1; }
 
+/* Mobile: disable hover, show overlay always */
 @media (max-width:600px){
   .photo { width:60px; height:60px; }
   .gif-wrapper img { max-height:240px; }
   .project img:hover { transform:scale(1); }
+  .project-overlay { opacity:1; }
 }
 </style>
 </head>
@@ -216,13 +181,8 @@ body {
     <img src="logo-white.webp" class="logo" alt="Cache River Mill & MetalWorks">
   </div>
 
-  <!-- PHOTO (auto-removes if missing) -->
   <div class="photo-container" id="photo-container">
-    <img
-      src="photo.jpg"
-      class="photo"
-      alt=""
-      onerror="document.getElementById('photo-container').remove();">
+    <img src="photo.jpg" class="photo" alt="" onerror="document.getElementById('photo-container').remove();">
   </div>
 
   <div class="header">
@@ -239,9 +199,7 @@ body {
     <a href="mailto:NWade@CacheRiverMill.com" class="btn btn-secondary">Email</a>
   </div>
 
-  <a href="https://cacherivermill.com" target="_blank" class="website-link">
-    cacherivermill.com
-  </a>
+  <a href="https://cacherivermill.com" target="_blank" class="website-link">cacherivermill.com</a>
 </div>
 
 <!-- GIF -->
@@ -253,10 +211,22 @@ body {
 <section id="project-gallery" class="fade-element">
   <h2>Project Gallery</h2>
   <div class="gallery">
-    <div class="project"><img src="images/project1.jpg" alt="Project 1"></div>
-    <div class="project"><img src="images/project2.jpg" alt="Project 2"></div>
-    <div class="project"><img src="images/project3.jpg" alt="Project 3"></div>
-    <div class="project"><img src="images/project4.jpg" alt="Project 4"></div>
+    <div class="project">
+      <img src="images/project1.jpg" alt="Project 1">
+      <div class="project-overlay">Project 1</div>
+    </div>
+    <div class="project">
+      <img src="images/project2.jpg" alt="Project 2">
+      <div class="project-overlay">Project 2</div>
+    </div>
+    <div class="project">
+      <img src="images/project3.jpg" alt="Project 3">
+      <div class="project-overlay">Project 3</div>
+    </div>
+    <div class="project">
+      <img src="images/project4.jpg" alt="Project 4">
+      <div class="project-overlay">Project 4</div>
+    </div>
   </div>
 </section>
 
@@ -268,17 +238,9 @@ window.addEventListener('load', () => {
   const gallerySection = document.getElementById('project-gallery');
   const gifImg = gifWrapper.querySelector('img');
 
-  // Fade in contact card
-  setTimeout(() => { contactCard.classList.add('visible'); }, 100);
-
-  // Fade in GIF wrapper
-  setTimeout(() => {
-    gifWrapper.classList.add('visible');
-    gifImg.classList.add('loaded');
-  }, 400);
-
-  // Fade in gallery heading
-  setTimeout(() => { gallerySection.classList.add('visible'); }, 800);
+  setTimeout(() => contactCard.classList.add('visible'), 100);
+  setTimeout(() => { gifWrapper.classList.add('visible'); gifImg.classList.add('loaded'); }, 400);
+  setTimeout(() => gallerySection.classList.add('visible'), 800);
 });
 
 // Gallery images fade in on scroll
