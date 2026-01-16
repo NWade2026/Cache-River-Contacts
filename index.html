@@ -51,12 +51,32 @@ body {
   margin-bottom:24px;
   position:relative;
   overflow:visible; /* allows NFC icon outside */
+  /* shimmer overlay */
+  position:relative;
+  z-index:1;
 }
 
-.logo-container { display:flex; justify-content:center; margin-bottom:16px; }
+.card::before {
+  content:"";
+  position:absolute;
+  top:0; left:0; right:0; bottom:0;
+  background: linear-gradient(90deg, rgba(212,168,75,0.05) 0%, rgba(212,168,75,0.15) 50%, rgba(212,168,75,0.05) 100%);
+  transform:translateX(-100%);
+  animation: shimmer 2.5s infinite;
+  border-radius:20px;
+  pointer-events:none;
+  z-index:0;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.logo-container { display:flex; justify-content:center; margin-bottom:16px; z-index:1; position:relative; }
 .logo { height:32px; }
 
-.photo-container { display:flex; justify-content:center; margin-bottom:12px; min-height:0; }
+.photo-container { display:flex; justify-content:center; margin-bottom:12px; min-height:0; z-index:1; position:relative; }
 .photo {
   width:80px;
   height:80px;
@@ -66,18 +86,18 @@ body {
   background:var(--bg-card-inner);
 }
 
-.header { text-align:center; margin-bottom:16px; }
+.header { text-align:center; margin-bottom:16px; z-index:1; position:relative; }
 .name { font-size:1.5rem; font-weight:700; color:var(--text-primary); }
 .title { font-size:.85rem; color:var(--accent); }
 
-.divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); margin:16px -24px; }
+.divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); margin:16px -24px; z-index:1; position:relative; }
 
 /* ---------------- BUTTONS ---------------- */
-.actions { display:flex; flex-direction:column; gap:8px; }
+.actions { display:flex; flex-direction:column; gap:8px; z-index:1; position:relative; }
 .btn { padding:12px 16px; border-radius:10px; text-decoration:none; font-size:.9rem; font-weight:600; display:flex; justify-content:center; align-items:center; border:1px solid var(--border-subtle); }
 .btn-contact { background:var(--accent); color:#1a1a1a; border:none; }
 .btn-secondary { background:rgba(255,255,255,.15); color:#ffffff; }
-.website-link { display:block; text-align:center; margin-top:16px; color:var(--accent); text-decoration:none; }
+.website-link { display:block; text-align:center; margin-top:16px; color:var(--accent); text-decoration:none; z-index:1; position:relative; }
 
 /* ---------------- GIF ---------------- */
 .gif-wrapper {
@@ -118,7 +138,7 @@ body {
 /* ---------------- NFC ICON ---------------- */
 .nfc-icon {
   position:absolute;
-  bottom:-10px; /* slightly below card edge */
+  bottom:-10px;
   right:16px;
   width:45px;
   height:45px;
