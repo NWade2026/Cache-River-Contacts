@@ -34,11 +34,11 @@ body {
   align-items:center;
 }
 
-/* ---------------- FADE-IN ---------------- */
+/* ---------------- FADE ---------------- */
 .fade-element {
   opacity:0;
   transform:translateY(20px);
-  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  transition: opacity .8s ease, transform .8s ease;
 }
 .fade-element.visible {
   opacity:1;
@@ -56,32 +56,32 @@ body {
   box-shadow:var(--shadow-card);
   margin-bottom:24px;
   position:relative;
-  overflow:hidden; /* CONTAINS SHIMMER */
+  overflow:hidden;
 }
 
-/* --- SHIMMER (CARD ONLY) --- */
+/* shimmer */
 .card::before {
-  content:"";
+  content:'';
   position:absolute;
   inset:0;
   background:linear-gradient(
     135deg,
-    rgba(212,168,75,0.05) 0%,
-    rgba(212,168,75,0.18) 50%,
-    rgba(212,168,75,0.05) 100%
+    rgba(212,168,75,0.04) 0%,
+    rgba(212,168,75,0.16) 50%,
+    rgba(212,168,75,0.04) 100%
   );
   transform:translate(-100%, -100%);
-  animation: shimmerDiag 3.5s infinite;
+  animation: shimmer 4s infinite;
   pointer-events:none;
   z-index:0;
 }
 
-@keyframes shimmerDiag {
+@keyframes shimmer {
   from { transform:translate(-100%, -100%); }
   to   { transform:translate(100%, 100%); }
 }
 
-/* Lift card content above shimmer */
+/* keep content above shimmer */
 .card > * {
   position:relative;
   z-index:1;
@@ -121,8 +121,9 @@ body {
   display:flex;
   justify-content:center;
   align-items:center;
+  border:1px solid var(--border-subtle);
 }
-.btn-contact { background:var(--accent); color:#1a1a1a; }
+.btn-contact { background:var(--accent); color:#1a1a1a; border:none; }
 .btn-secondary { background:rgba(255,255,255,.15); color:#fff; }
 
 .website-link {
@@ -136,7 +137,7 @@ body {
 /* ---------------- NFC ICON ---------------- */
 .nfc-icon {
   position:absolute;
-  bottom:-10px;
+  bottom:-4px;
   right:16px;
   width:45px;
   height:45px;
@@ -146,19 +147,18 @@ body {
   justify-content:center;
   align-items:center;
   font-weight:700;
-  font-size:18px;
   color:#1a1a1a;
   box-shadow:0 0 12px var(--accent);
   animation:pulse 1.5s infinite;
   cursor:pointer;
-  overflow:hidden;
   z-index:3;
+  overflow:hidden;
 }
 
 @keyframes pulse {
-  0% { transform:scale(0.85); opacity:0.6; }
+  0% { transform:scale(.85); opacity:.6; }
   50% { transform:scale(1.15); opacity:1; }
-  100% { transform:scale(0.85); opacity:0.6; }
+  100% { transform:scale(.85); opacity:.6; }
 }
 
 .nfc-check {
@@ -169,12 +169,11 @@ body {
   align-items:center;
   font-size:26px;
   color:#FFD700;
-  text-shadow:0 0 8px #FFD700;
   opacity:0;
   transform:scale(0);
-  transition:.3s;
+  transition:.3s ease;
+  pointer-events:none;
 }
-
 .nfc-check.show {
   opacity:1;
   transform:scale(1.2);
@@ -188,25 +187,73 @@ body {
   border-radius:16px;
   overflow:hidden;
   box-shadow:var(--shadow-card);
+  border:1px solid var(--border-subtle);
 }
 .gif-wrapper img {
   width:100%;
   max-height:320px;
   object-fit:cover;
+  display:block;
   opacity:0;
   transform:translateY(20px);
-  transition:1s;
+  transition:1s ease;
 }
 .gif-wrapper img.loaded {
   opacity:1;
-  transform:none;
+  transform:translateY(0);
 }
 
 /* ---------------- GALLERY ---------------- */
-#project-gallery { max-width:1000px; margin-bottom:40px; }
-#project-gallery h2 { color:var(--accent); margin-bottom:24px; text-align:center; }
-.gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
-.project img { width:100%; border-radius:16px; }
+#project-gallery {
+  width:100%;
+  max-width:1000px;
+  text-align:center;
+  margin-bottom:40px;
+}
+#project-gallery h2 { color:var(--accent); margin-bottom:24px; }
+
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+.project {
+  aspect-ratio:4/3;
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--border-subtle);
+  box-shadow:var(--shadow-card);
+  opacity:0;
+  transform:translateY(10px);
+  transition:.6s ease;
+  cursor:pointer;
+}
+.project.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+.project img {
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  background:#000;
+}
+
+/* ---------------- MODAL ---------------- */
+#modal {
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.85);
+  justify-content:center;
+  align-items:center;
+}
+#modal img {
+  max-width:90%;
+  max-height:90%;
+  border-radius:16px;
+}
 
 /* ---------------- MOBILE ---------------- */
 @media(max-width:600px){
@@ -241,11 +288,10 @@ body {
     <a href="mailto:NWade@CacheRiverMill.com" class="btn btn-secondary">Email</a>
   </div>
 
-  <a href="https://cacherivermill.com" class="website-link">cacherivermill.com</a>
+  <a href="https://cacherivermill.com" class="website-link" target="_blank">cacherivermill.com</a>
 
-  <div class="nfc-icon" id="nfc-icon">
-    NFC
-    <span class="nfc-check" id="nfc-check">&#10003;</span>
+  <div class="nfc-icon" id="nfc-icon">NFC
+    <span class="nfc-check" id="nfc-check">✓</span>
   </div>
 </div>
 
@@ -256,25 +302,48 @@ body {
 <section id="project-gallery" class="fade-element">
   <h2>Project Gallery</h2>
   <div class="gallery">
-    <img class="project" src="images/project1.jpg">
-    <img class="project" src="images/project2.jpg">
-    <img class="project" src="images/project3.jpg">
-    <img class="project" src="images/project4.jpg">
+    <div class="project"><img src="images/project1.jpg"></div>
+    <div class="project"><img src="images/project2.jpg"></div>
+    <div class="project"><img src="images/project3.jpg"></div>
+    <div class="project"><img src="images/project4.jpg"></div>
   </div>
 </section>
 
+<div id="modal"><img></div>
+
 <script>
 window.addEventListener('load',()=>{
-  document.getElementById('contact-card').classList.add('visible');
-  document.getElementById('gif-wrapper').classList.add('visible');
-  document.querySelector('.gif-wrapper img').classList.add('loaded');
-  document.getElementById('project-gallery').classList.add('visible');
+  document.querySelectorAll('.fade-element').forEach((el,i)=>{
+    setTimeout(()=>el.classList.add('visible'),i*300);
+  });
+  document.querySelector('#gif-wrapper img').classList.add('loaded');
 });
 
+const projects=document.querySelectorAll('.project');
+const observer=new IntersectionObserver(e=>{
+  e.forEach(x=>{
+    if(x.isIntersecting){
+      x.target.classList.add('visible');
+      observer.unobserve(x.target);
+    }
+  });
+},{threshold:.2});
+projects.forEach(p=>observer.observe(p));
+
+const modal=document.getElementById('modal');
+const modalImg=modal.querySelector('img');
+projects.forEach(p=>{
+  p.onclick=()=>{
+    modal.style.display='flex';
+    modalImg.src=p.querySelector('img').src;
+  }
+});
+modal.onclick=()=>modal.style.display='none';
+
 document.getElementById('nfc-icon').onclick=()=>{
-  const c=document.getElementById('nfc-check');
-  c.classList.add('show');
-  setTimeout(()=>c.classList.remove('show'),900);
+  const check=document.getElementById('nfc-check');
+  check.classList.add('show');
+  setTimeout(()=>check.classList.remove('show'),1000);
 };
 </script>
 
