@@ -132,6 +132,7 @@ body {
   animation: pulse 1.5s infinite;
   cursor:pointer;
   overflow:hidden;
+  position:relative;
 }
 
 @keyframes pulse {
@@ -160,6 +161,25 @@ body {
   50% { transform:scale(2); opacity:0.3; }
   100% { transform:scale(2.5); opacity:0; }
 }
+
+/* ---------------- CHECKMARK ---------------- */
+.nfc-check {
+  position:absolute;
+  width:100%;
+  height:100%;
+  border-radius:50%;
+  top:0;
+  left:0;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:#1a1a1a;
+  font-size:16px;
+  opacity:0;
+  pointer-events:none;
+  transition: opacity 0.3s ease;
+}
+.nfc-check.show { opacity:1; }
 
 /* ---------------- MEDIA ---------------- */
 @media (max-width:600px){
@@ -200,7 +220,9 @@ body {
   <a href="https://cacherivermill.com" target="_blank" class="website-link">cacherivermill.com</a>
 
   <!-- NFC Pulse Icon -->
-  <div class="nfc-icon" id="nfc-icon">NFC</div>
+  <div class="nfc-icon" id="nfc-icon">NFC
+    <span class="nfc-check" id="nfc-check">&#10003;</span>
+  </div>
 </div>
 
 <!-- GIF -->
@@ -267,17 +289,20 @@ modal.addEventListener('click', () => {
   modalImg.src = '';
 });
 
-// ---------------- NFC TAP EFFECT ----------------
+// ---------------- NFC TAP EFFECT WITH CHECK ----------------
 const nfcIcon = document.getElementById('nfc-icon');
+const nfcCheck = document.getElementById('nfc-check');
 
 nfcIcon.addEventListener('click', () => {
   // create ripple element
   const ripple = document.createElement('span');
   ripple.classList.add('nfc-ripple', 'animate');
   nfcIcon.appendChild(ripple);
-
-  // remove ripple after animation
   ripple.addEventListener('animationend', () => ripple.remove());
+
+  // show checkmark briefly
+  nfcCheck.classList.add('show');
+  setTimeout(() => nfcCheck.classList.remove('show'), 1000);
 });
 </script>
 
