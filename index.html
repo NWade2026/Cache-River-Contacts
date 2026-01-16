@@ -6,8 +6,6 @@
 <meta name="theme-color" content="#074975">
 <meta name="description" content="Contact Nicolas Wade at Cache River Mill & MetalWorks">
 <title>Nicolas Wade | Cache River Mill & MetalWorks</title>
-<link rel="icon" type="image/x-icon" href="favicon.ico">
-<link rel="apple-touch-icon" href="logo.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,172 +13,213 @@
 
 <style>
 :root {
-  --bg-primary: #052038;
-  --bg-card: #074975;
-  --bg-card-inner: #0a5a8a;
-  --text-primary: #ffffff;
-  --text-secondary: rgba(255, 255, 255, 0.75);
-  --accent: #D4A84B;
-  --accent-hover: #E0BB65;
-  --accent-glow: rgba(212, 168, 75, 0.2);
-  --btn-secondary: rgba(255, 255, 255, 0.15);
-  --btn-secondary-hover: rgba(255, 255, 255, 0.25);
-  --btn-secondary-text: #ffffff;
-  --border-subtle: rgba(255, 255, 255, 0.12);
-  --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-  --noise-opacity: 0.015;
-
-  --gallery-overlay: rgba(0,0,0,0.6);
-  --gallery-title: #ffffff;
-  --gallery-text: rgba(255,255,255,0.85);
+  --bg-primary:#052038;
+  --bg-card:#074975;
+  --bg-card-inner:#0a5a8a;
+  --text-primary:#fff;
+  --text-secondary:rgba(255,255,255,.75);
+  --accent:#D4A84B;
+  --accent-hover:#E0BB65;
+  --border-subtle:rgba(255,255,255,.12);
+  --shadow-card:0 25px 50px -12px rgba(0,0,0,.5);
 }
 
-* { margin:0; padding:0; box-sizing:border-box; }
-
+* { box-sizing:border-box; margin:0; padding:0; }
 html, body { width:100%; overflow-x:hidden; }
 
 body {
-  font-family: 'Outfit', sans-serif;
-  background: var(--bg-primary);
-  padding: 16px;
-  min-height: 100%;
-  overflow-y: auto;
+  font-family:'Outfit',sans-serif;
+  background:var(--bg-primary);
+  padding:16px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  overflow-y:auto;
 }
 
-body::before {
-  content: "";
-  position: fixed;
-  top: 0; left: 0;
-  width: 100%; height: 100%;
-  opacity: var(--noise-opacity);
-  pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-}
-
-/* --- Card --- */
+/* ---------------- CARD ---------------- */
 .card {
-  position: relative;
-  width: 100%;
-  max-width: 380px;
-  background: var(--bg-card);
-  border-radius: 20px;
-  padding: 24px;
-  box-shadow: var(--shadow-card);
-  border: 1px solid var(--border-subtle);
-  margin-bottom: 40px;
-  overflow: visible;
+  width:100%;
+  max-width:380px;
+  background:var(--bg-card);
+  border-radius:20px;
+  padding:24px;
+  border:1px solid var(--border-subtle);
+  box-shadow:var(--shadow-card);
+  margin-bottom:32px;
 }
 
-.logo-container { display: flex; justify-content: center; margin-bottom:16px; }
-.logo { height:32px; width:auto; }
+.logo-container {
+  display:flex;
+  justify-content:center;
+  margin-bottom:16px;
+}
+.logo { height:32px; }
 
-.photo-container { display:flex; justify-content:center; margin-bottom:12px; max-width:100%; }
-.photo { width:80px; max-width:100%; height:auto; border-radius:50%; object-fit:cover; border:3px solid var(--accent); background: var(--bg-card-inner); }
+.photo-container {
+  display:flex;
+  justify-content:center;
+  margin-bottom:12px;
+}
+.photo {
+  width:80px;
+  height:80px;
+  border-radius:50%;
+  object-fit:cover;
+  border:3px solid var(--accent);
+  background:var(--bg-card-inner);
+}
 
 .header { text-align:center; margin-bottom:16px; }
-.name { font-size:1.5rem; font-weight:700; color: var(--text-primary); margin-bottom:4px;}
-.title { font-size:0.85rem; font-weight:500; color: var(--accent);}
-.divider { height:1px; background: linear-gradient(90deg, transparent, var(--border-subtle), var(--accent), var(--border-subtle), transparent); margin:0 -24px 16px;}
+.name { font-size:1.5rem; font-weight:700; color:var(--text-primary); }
+.title { font-size:.85rem; color:var(--accent); }
 
-/* --- Buttons --- */
+.divider {
+  height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  margin:16px -24px;
+}
+
+/* ---------------- BUTTONS ---------------- */
 .actions {
-  position: sticky;  /* sticky ensures buttons stay on top */
-  top: 16px;
-  z-index: 20;       /* above images */
   display:flex;
-  flex-direction: column;
+  flex-direction:column;
   gap:8px;
 }
 
-.btn { padding:12px 16px; border-radius:10px; text-decoration:none; font-size:0.9rem; font-weight:600; display:flex; align-items:center; justify-content:center; gap:10px; border:1px solid var(--border-subtle);}
-.btn:active { transform: scale(0.96); transition: transform 0.1s ease; }
-.btn-contact { background: var(--accent); color:#1a1a1a; border:none; }
-.btn-contact:hover { background: var(--accent-hover); }
-.btn-secondary { background: var(--btn-secondary); color: var(--btn-secondary-text);}
-.website-link { display:block; text-align:center; margin-top:16px; font-size:0.9rem; font-weight:500; color:var(--accent); text-decoration:none;}
-.footer-accent { position:absolute; bottom:0; left:0; right:0; height:3px; background: linear-gradient(90deg, transparent, var(--accent), transparent); opacity:0.6; }
+.btn {
+  padding:12px 16px;
+  border-radius:10px;
+  text-decoration:none;
+  font-size:.9rem;
+  font-weight:600;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:8px;
+  border:1px solid var(--border-subtle);
+}
 
-/* --- Project Gallery --- */
-#project-gallery { width:100%; max-width:1000px; display:flex; flex-direction:column; align-items:center; margin-bottom:40px;}
-#project-gallery h2 { color: var(--accent); font-size:1.8rem; margin-bottom:24px;}
-.gallery { display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:16px; width:100%; }
-.project { position:relative; overflow:hidden; border-radius:16px; cursor:pointer; box-shadow: var(--shadow-card); border:1px solid var(--border-subtle); transition: transform 0.3s;}
-.project img { width:100%; display:block; transition: transform 0.3s;}
-.project:hover img { transform: scale(1.05); }
-.overlay { position:absolute; bottom:0; width:100%; padding:12px; background: var(--gallery-overlay); color: var(--gallery-text); transform:translateY(100%); transition: transform 0.3s;}
-.project:hover .overlay { transform:translateY(0);}
-.overlay h3 { margin-bottom:4px; color: var(--gallery-title);}
+.btn-contact {
+  background:var(--accent);
+  color:#1a1a1a;
+  border:none;
+}
+.btn-secondary {
+  background:rgba(255,255,255,.15);
+  color:#fff;
+}
 
-/* --- Mobile adjustments --- */
+.website-link {
+  display:block;
+  text-align:center;
+  margin-top:16px;
+  color:var(--accent);
+  text-decoration:none;
+}
+
+/* ---------------- GIF SECTION ---------------- */
+.gif-wrapper {
+  width:100%;
+  max-width:900px;
+  margin:0 auto 40px;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:var(--shadow-card);
+  border:1px solid var(--border-subtle);
+}
+
+.gif-wrapper img {
+  width:100%;
+  display:block;
+  max-height:320px;
+  object-fit:cover;
+}
+
+/* ---------------- GALLERY ---------------- */
+#project-gallery {
+  width:100%;
+  max-width:1000px;
+  text-align:center;
+}
+
+#project-gallery h2 {
+  color:var(--accent);
+  margin-bottom:24px;
+}
+
+.gallery {
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:16px;
+}
+
+.project {
+  border-radius:16px;
+  overflow:hidden;
+  border:1px solid var(--border-subtle);
+  box-shadow:var(--shadow-card);
+}
+
+.project img {
+  width:100%;
+  display:block;
+}
+
+/* Mobile safety */
 @media (max-width:600px){
-  .card { max-width:100%; }
-  .photo { max-width:60px; height:auto; }
-  .overlay { transform: translateY(0); } /* always show overlay on mobile */
+  .photo { width:60px; height:60px; }
+  .gif-wrapper img { max-height:240px; }
 }
 </style>
 </head>
+
 <body>
 
-<!-- --- Contact Card --- -->
+<!-- CONTACT CARD -->
 <div class="card">
-  <div class="content">
-    <div class="logo-container">
-      <img src="logo-white.webp" alt="Cache River Mill & MetalWorks" class="logo">
-    </div>
-
-    <div class="photo-container">
-      <img src="photo.jpg" alt="Nicolas Wade" class="photo" 
-           onerror="this.dataset.failed='true'; this.style.display='none'; this.parentElement.style.display='none';">
-    </div>
-
-    <div class="header">
-      <h1 class="name">Nicolas Wade</h1>
-      <p class="title">Cache River Mill & MetalWorks</p>
-    </div>
-
-    <div class="divider"></div>
-
-    <!-- ACTION BUTTONS -->
-    <div class="actions">
-      <a href="contact.vcf" class="btn btn-contact">
-        Add to Contacts
-      </a>
-      <a href="tel:18709413221" class="btn btn-secondary">
-        Call
-      </a>
-      <a href="sms:18709413221" class="btn btn-secondary">
-        Text
-      </a>
-      <a href="mailto:NWade@CacheRiverMill.com" class="btn btn-secondary">
-        Email
-      </a>
-    </div>
-
-    <a href="https://cacherivermill.com" target="_blank" class="website-link">cacherivermill.com</a>
+  <div class="logo-container">
+    <img src="logo-white.webp" class="logo" alt="Cache River Mill & MetalWorks">
   </div>
 
-  <div class="footer-accent"></div>
+  <div class="photo-container">
+    <img src="photo.jpg" class="photo" alt="Nicolas Wade">
+  </div>
+
+  <div class="header">
+    <div class="name">Nicolas Wade</div>
+    <div class="title">Cache River Mill & MetalWorks</div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="actions">
+    <a href="contact.vcf" class="btn btn-contact">Add to Contacts</a>
+    <a href="tel:18709413221" class="btn btn-secondary">Call</a>
+    <a href="sms:18709413221" class="btn btn-secondary">Text</a>
+    <a href="mailto:NWade@CacheRiverMill.com" class="btn btn-secondary">Email</a>
+  </div>
+
+  <a href="https://cacherivermill.com" target="_blank" class="website-link">
+    cacherivermill.com
+  </a>
 </div>
 
-<!-- --- Project Gallery --- -->
+<!-- GIF (SAFE PLACEMENT) -->
+<div class="gif-wrapper">
+  <img src="images/intro.gif" alt="Shop preview">
+</div>
+
+<!-- PROJECT GALLERY -->
 <section id="project-gallery">
   <h2>Project Gallery</h2>
   <div class="gallery">
     <div class="project">
       <img src="images/project1.jpg" alt="Project 1">
-      <div class="overlay">
-        <h3>Project 1</h3>
-        <p>Custom metal table with wood top</p>
-      </div>
     </div>
     <div class="project">
       <img src="images/project2.jpg" alt="Project 2">
-      <div class="overlay">
-        <h3>Project 2</h3>
-        <p>Handcrafted steel sculpture</p>
-      </div>
     </div>
-    <!-- Add more projects here -->
   </div>
 </section>
 
