@@ -20,7 +20,6 @@
   --accent:#D4A84B;
   --border-subtle:rgba(255,255,255,.12);
   --shadow-card:0 25px 50px -12px rgba(0,0,0,.5);
-  --accent-glow: rgba(212,168,75,0.15);
 }
 
 /* ---------------- GLOBAL ---------------- */
@@ -33,6 +32,7 @@ body {
   display:flex;
   flex-direction:column;
   align-items:center;
+  justify-content:flex-start;
 }
 
 /* ---------------- PAGE FADE-IN ---------------- */
@@ -48,36 +48,15 @@ body {
   padding:24px;
   border:1px solid var(--border-subtle);
   box-shadow:var(--shadow-card);
-  margin-bottom:32px;
+  margin-bottom:24px;
   position:relative;
-  overflow: visible; /* allow NFC icon outside */
+  overflow:visible; /* allows NFC icon outside */
 }
 
-/* Shimmer effect */
-.card::before {
-  content:"";
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:linear-gradient(120deg, transparent 0%, var(--accent-glow) 50%, transparent 100%);
-  transform: translateX(-100%);
-  pointer-events:none;
-  z-index:0;
-  border-radius:20px;
-  animation: shimmer 2.5s infinite;
-}
-
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(100%); }
-}
-
-.logo-container { display:flex; justify-content:center; margin-bottom:16px; z-index:1; position:relative; }
+.logo-container { display:flex; justify-content:center; margin-bottom:16px; }
 .logo { height:32px; }
 
-.photo-container { display:flex; justify-content:center; margin-bottom:12px; min-height:0; z-index:1; position:relative; }
+.photo-container { display:flex; justify-content:center; margin-bottom:12px; min-height:0; }
 .photo {
   width:80px;
   height:80px;
@@ -87,18 +66,18 @@ body {
   background:var(--bg-card-inner);
 }
 
-.header { text-align:center; margin-bottom:16px; z-index:1; position:relative; }
+.header { text-align:center; margin-bottom:16px; }
 .name { font-size:1.5rem; font-weight:700; color:var(--text-primary); }
 .title { font-size:.85rem; color:var(--accent); }
 
 .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); margin:16px -24px; }
 
 /* ---------------- BUTTONS ---------------- */
-.actions { display:flex; flex-direction:column; gap:8px; z-index:1; position:relative; }
+.actions { display:flex; flex-direction:column; gap:8px; }
 .btn { padding:12px 16px; border-radius:10px; text-decoration:none; font-size:.9rem; font-weight:600; display:flex; justify-content:center; align-items:center; border:1px solid var(--border-subtle); }
 .btn-contact { background:var(--accent); color:#1a1a1a; border:none; }
 .btn-secondary { background:rgba(255,255,255,.15); color:#ffffff; }
-.website-link { display:block; text-align:center; margin-top:16px; color:var(--accent); text-decoration:none; z-index:1; position:relative; }
+.website-link { display:block; text-align:center; margin-top:16px; color:var(--accent); text-decoration:none; }
 
 /* ---------------- GIF ---------------- */
 .gif-wrapper {
@@ -126,7 +105,7 @@ body {
 #project-gallery h2 { color:var(--accent); margin-bottom:24px; }
 .gallery { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
 
-.project { border-radius:16px; overflow:hidden; border:1px solid var(--border-subtle); box-shadow:var(--shadow-card); opacity:0; transform:translateY(10px); transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease; cursor:pointer; }
+.project { border-radius:16px; overflow:hidden; border:1px solid var(--border-subtle); box-shadow:var(--shadow-card); opacity:0; transform:translateY(10px); transition: opacity 0.6s ease-out, transform 0.6s ease-out, box-shadow 0.3s ease, transform 0.3s ease; cursor:pointer; }
 .project.visible { opacity:1; transform:translateY(0); }
 .project img { width:100%; display:block; transition: transform 0.3s ease; }
 .project:hover { box-shadow:0 35px 60px -12px rgba(0,0,0,0.6); }
@@ -139,7 +118,7 @@ body {
 /* ---------------- NFC ICON ---------------- */
 .nfc-icon {
   position:absolute;
-  bottom: -10px; /* slightly below card so it’s visible */
+  bottom:-10px; /* slightly below card edge */
   right:16px;
   width:45px;
   height:45px;
@@ -155,7 +134,7 @@ body {
   animation: pulse 1.5s infinite;
   cursor:pointer;
   overflow:hidden;
-  z-index:2; /* above shimmer */
+  z-index:2;
 }
 
 @keyframes pulse {
@@ -199,7 +178,7 @@ body {
   color:#FFD700;
   font-size:26px;
   font-weight:bold;
-  text-shadow:0 0 6px #FFD700, 0 0 12px #FFD700;
+  text-shadow:0 0 6px #FFD700,0 0 12px #FFD700;
   opacity:0;
   pointer-events:none;
   transform:scale(0);
@@ -222,12 +201,8 @@ body {
 }
 </style>
 </head>
-<body>
 
-<!-- GIF -->
-<div class="gif-wrapper fade-element" id="gif-wrapper">
-  <img src="images/intro.gif" alt="Workshop preview">
-</div>
+<body>
 
 <!-- CONTACT CARD -->
 <div class="card fade-element" id="contact-card">
@@ -259,6 +234,11 @@ body {
   <div class="nfc-icon" id="nfc-icon">NFC
     <span class="nfc-check" id="nfc-check">&#10003;</span>
   </div>
+</div>
+
+<!-- GIF BELOW CONTACT CARD -->
+<div class="gif-wrapper fade-element" id="gif-wrapper">
+  <img src="images/intro.gif" alt="Workshop preview">
 </div>
 
 <!-- PROJECT GALLERY -->
@@ -304,7 +284,7 @@ const observer = new IntersectionObserver((entries) => {
 
 projects.forEach(project => observer.observe(project));
 
-// Modal
+// ---------------- LIGHTBOX MODAL ----------------
 const modal = document.getElementById('modal');
 const modalImg = modal.querySelector('img');
 
@@ -320,18 +300,18 @@ modal.addEventListener('click', () => {
   modalImg.src = '';
 });
 
-// NFC TAP EFFECT WITH CHECK
+// ---------------- NFC TAP EFFECT WITH CHECK ----------------
 const nfcIcon = document.getElementById('nfc-icon');
 const nfcCheck = document.getElementById('nfc-check');
 
 nfcIcon.addEventListener('click', () => {
   const ripple = document.createElement('span');
-  ripple.classList.add('nfc-ripple','animate');
+  ripple.classList.add('nfc-ripple', 'animate');
   nfcIcon.appendChild(ripple);
-  ripple.addEventListener('animationend',()=>ripple.remove());
+  ripple.addEventListener('animationend', () => ripple.remove());
 
   nfcCheck.classList.add('show');
-  setTimeout(()=> nfcCheck.classList.remove('show'),1000);
+  setTimeout(() => nfcCheck.classList.remove('show'), 1000);
 });
 </script>
 
