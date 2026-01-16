@@ -134,12 +134,12 @@ body {
   transform:translateY(20px);
   transition: opacity 0.8s ease-out, transform 0.8s ease-out;
 }
-.project.visible { opacity:1; transform:translateY(0); }
+.project {
+  opacity: 0;
+  transform: translateY(10px); /* smaller offset */
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out; /* slightly faster */
+}
 
-.project img {
-  width:100%;
-  display:block;
-  transition: transform 0.3s ease;
 }
 .project:hover img { transform:scale(1.05); }
 
@@ -239,4 +239,5 @@ projects.forEach(project => observer.observe(project));
 
 </body>
 </html>
+
 
