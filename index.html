@@ -50,28 +50,31 @@ body {
   margin-bottom:32px;
   position:relative;
   overflow:hidden;
+  z-index:1;
 }
 
 /* Shimmer effect */
 .card::before {
-  content: "";
-  position: absolute;
+  content:"";
+  position:absolute;
   top:0; left:-75%;
   width:50%;
   height:100%;
   background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
   transform: skewX(-20deg);
   animation: shimmer 2.5s infinite;
+  pointer-events:none;
+  z-index:0;
 }
 @keyframes shimmer {
-  0% { left: -75%; }
-  100% { left: 125%; }
+  0% { left:-75%; }
+  100% { left:125%; }
 }
 
-.logo-container { display:flex; justify-content:center; margin-bottom:16px; }
+.logo-container { display:flex; justify-content:center; margin-bottom:16px; position:relative; z-index:1; }
 .logo { height:32px; }
 
-.photo-container { display:flex; justify-content:center; margin-bottom:12px; min-height:0; }
+.photo-container { display:flex; justify-content:center; margin-bottom:12px; min-height:0; position:relative; z-index:1; }
 .photo {
   width:80px;
   height:80px;
@@ -81,18 +84,18 @@ body {
   background:var(--bg-card-inner);
 }
 
-.header { text-align:center; margin-bottom:16px; }
+.header { text-align:center; margin-bottom:16px; position:relative; z-index:1; }
 .name { font-size:1.5rem; font-weight:700; color:var(--text-primary); }
 .title { font-size:.85rem; color:var(--accent); }
 
-.divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); margin:16px -24px; }
+.divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); margin:16px -24px; position:relative; z-index:1; }
 
 /* ---------------- BUTTONS ---------------- */
-.actions { display:flex; flex-direction:column; gap:8px; }
+.actions { display:flex; flex-direction:column; gap:8px; position:relative; z-index:1; }
 .btn { padding:12px 16px; border-radius:10px; text-decoration:none; font-size:.9rem; font-weight:600; display:flex; justify-content:center; align-items:center; border:1px solid var(--border-subtle); }
 .btn-contact { background:var(--accent); color:#1a1a1a; border:none; }
 .btn-secondary { background:rgba(255,255,255,.15); color:#ffffff; }
-.website-link { display:block; text-align:center; margin-top:16px; color:var(--accent); text-decoration:none; }
+.website-link { display:block; text-align:center; margin-top:16px; color:var(--accent); text-decoration:none; position:relative; z-index:1; }
 
 /* ---------------- GIF ---------------- */
 .gif-wrapper {
@@ -148,6 +151,7 @@ body {
   box-shadow:0 0 12px var(--accent);
   cursor:pointer;
   overflow:hidden;
+  z-index:2;
 }
 
 /* clickable checkmark, initially hidden */
