@@ -126,6 +126,14 @@ body {
   overflow:hidden;
   box-shadow:var(--shadow-card);
   border:1px solid var(--border-subtle);
+  opacity:0;
+  transform:translateY(20px);
+  transition: opacity 1s ease-out, transform 1s ease-out;
+}
+
+.gif-wrapper.loaded {
+  opacity:1;
+  transform:translateY(0);
 }
 
 .gif-wrapper img {
@@ -211,7 +219,7 @@ body {
 </div>
 
 <!-- GIF -->
-<div class="gif-wrapper">
+<div class="gif-wrapper" id="gif-wrapper">
   <img src="images/intro.gif" alt="Workshop preview">
 </div>
 
@@ -227,6 +235,15 @@ body {
     </div>
   </div>
 </section>
+
+<script>
+// Fade in GIF when loaded
+const gif = document.querySelector('#gif-wrapper img');
+const wrapper = document.getElementById('gif-wrapper');
+gif.onload = () => {
+  wrapper.classList.add('loaded');
+};
+</script>
 
 </body>
 </html>
