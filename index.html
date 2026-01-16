@@ -57,6 +57,7 @@ body {
   display:flex;
   justify-content:center;
   margin-bottom:12px;
+  min-height:0; /* ensures no leftover space if removed */
 }
 
 .photo {
@@ -181,13 +182,13 @@ body {
     <img src="logo-white.webp" class="logo" alt="Cache River Mill & MetalWorks">
   </div>
 
-  <!-- PHOTO (auto-hides if missing) -->
-  <div class="photo-container">
+  <!-- PHOTO (auto-removes if missing) -->
+  <div class="photo-container" id="photo-container">
     <img
       src="photo.jpg"
       class="photo"
       alt=""
-      onerror="this.remove(); this.parentElement.style.display='none';">
+      onerror="document.getElementById('photo-container').remove();">
   </div>
 
   <div class="header">
