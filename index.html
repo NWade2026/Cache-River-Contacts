@@ -49,14 +49,14 @@ body {
   box-shadow:var(--shadow-card);
   margin-bottom:32px;
   position:relative;
-  overflow: visible; /* allow NFC icon to show outside */
+  overflow:visible; /* allow NFC icon and shimmer outside */
 }
 
-/* ---------------- CARD SHIMMER ---------------- */
+/* SHIMMER */
 .card-shimmer {
   position: absolute;
   top: 0;
-  left: -75%;
+  left: -100%;
   width: 50%;
   height: 100%;
   background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.15) 50%, rgba(255,255,255,0) 100%);
@@ -65,18 +65,17 @@ body {
   pointer-events: none;
   z-index:1;
 }
-
 @keyframes shimmer {
-  0% { left: -75%; }
-  100% { left: 125%; }
+  0% { left: -100%; }
+  100% { left: 150%; }
 }
 
+/* Make sure card content is above shimmer */
 .card > * {
   position: relative;
   z-index: 2;
 }
 
-/* ---------------- LOGO & PHOTO ---------------- */
 .logo-container { display:flex; justify-content:center; margin-bottom:16px; }
 .logo { height:32px; }
 
@@ -96,7 +95,6 @@ body {
 
 .divider { height:1px; background:linear-gradient(90deg,transparent,var(--accent),transparent); margin:16px -24px; }
 
-/* ---------------- BUTTONS ---------------- */
 .actions { display:flex; flex-direction:column; gap:8px; }
 .btn { padding:12px 16px; border-radius:10px; text-decoration:none; font-size:.9rem; font-weight:600; display:flex; justify-content:center; align-items:center; border:1px solid var(--border-subtle); }
 .btn-contact { background:var(--accent); color:#1a1a1a; border:none; }
@@ -310,7 +308,7 @@ const observer = new IntersectionObserver((entries) => {
 
 projects.forEach(project => observer.observe(project));
 
-// ---------------- LIGHTBOX MODAL ----------------
+// Lightbox Modal
 const modal = document.getElementById('modal');
 const modalImg = modal.querySelector('img');
 
@@ -326,7 +324,7 @@ modal.addEventListener('click', () => {
   modalImg.src = '';
 });
 
-// ---------------- NFC TAP EFFECT WITH CHECK ----------------
+// NFC Tap + Checkmark
 const nfcIcon = document.getElementById('nfc-icon');
 const nfcCheck = document.getElementById('nfc-check');
 
