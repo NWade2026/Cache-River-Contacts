@@ -34,6 +34,18 @@ body {
   align-items:center;
 }
 
+/* ---------------- PAGE FADE-IN ---------------- */
+.fade-element {
+  opacity:0;
+  transform:translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-element.visible {
+  opacity:1;
+  transform:translateY(0);
+}
+
 /* ---------------- CONTACT CARD ---------------- */
 .card {
   width:100%;
@@ -126,21 +138,22 @@ body {
   overflow:hidden;
   box-shadow:var(--shadow-card);
   border:1px solid var(--border-subtle);
-  opacity:0;
-  transform:translateY(20px);
-  transition: opacity 1s ease-out, transform 1s ease-out;
 }
 
-.gif-wrapper.loaded {
-  opacity:1;
-  transform:translateY(0);
-}
-
+/* GIF image fade-in handled via class */
 .gif-wrapper img {
   width:100%;
   max-height:320px;
   object-fit:cover;
   display:block;
+  transition: opacity 1s ease-out, transform 1s ease-out;
+  opacity:0;
+  transform:translateY(20px);
+}
+
+.gif-wrapper img.loaded {
+  opacity:1;
+  transform:translateY(0);
 }
 
 /* ---------------- GALLERY ---------------- */
@@ -179,12 +192,17 @@ body {
 .project img {
   width:100%;
   display:block;
+  transition: transform 0.3s ease;
 }
 
-/* Mobile safety */
+.project img:hover {
+  transform:scale(1.05);
+}
+
 @media (max-width:600px){
   .photo { width:60px; height:60px; }
   .gif-wrapper img { max-height:240px; }
+  .project img:hover { transform:scale(1); }
 }
 </style>
 </head>
@@ -192,7 +210,7 @@ body {
 <body>
 
 <!-- CONTACT CARD -->
-<div class="card">
+<div class="card fade-element" id="contact-card">
 
   <div class="logo-container">
     <img src="logo-white.webp" class="logo" alt="Cache River Mill & MetalWorks">
@@ -227,12 +245,12 @@ body {
 </div>
 
 <!-- GIF -->
-<div class="gif-wrapper" id="gif-wrapper">
+<div class="gif-wrapper fade-element" id="gif-wrapper">
   <img src="images/intro.gif" alt="Workshop preview">
 </div>
 
 <!-- PROJECT GALLERY -->
-<section id="project-gallery">
+<section id="project-gallery" class="fade-element">
   <h2>Project Gallery</h2>
   <div class="gallery">
     <div class="project"><img src="images/project1.jpg" alt="Project 1"></div>
@@ -243,12 +261,27 @@ body {
 </section>
 
 <script>
-// GIF fade-in
-const gif = document.querySelector('#gif-wrapper img');
-const wrapper = document.getElementById('gif-wrapper');
-gif.onload = () => { wrapper.classList.add('loaded'); };
+// Sequential page entrance animation
+window.addEventListener('load', () => {
+  const contactCard = document.getElementById('contact-card');
+  const gifWrapper = document.getElementById('gif-wrapper');
+  const gallerySection = document.getElementById('project-gallery');
+  const gifImg = gifWrapper.querySelector('img');
 
-// Gallery fade-in on scroll
+  // Fade in contact card
+  setTimeout(() => { contactCard.classList.add('visible'); }, 100);
+
+  // Fade in GIF wrapper
+  setTimeout(() => {
+    gifWrapper.classList.add('visible');
+    gifImg.classList.add('loaded');
+  }, 400);
+
+  // Fade in gallery heading
+  setTimeout(() => { gallerySection.classList.add('visible'); }, 800);
+});
+
+// Gallery images fade in on scroll
 const projects = document.querySelectorAll('.project');
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -258,7 +291,6 @@ const observer = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold:0.2 });
-
 projects.forEach(project => observer.observe(project));
 </script>
 
