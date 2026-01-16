@@ -50,7 +50,26 @@ body {
   box-shadow:var(--shadow-card);
   margin-bottom:24px;
   position:relative;
-  overflow:visible; /* allows NFC icon outside */
+  overflow:visible;
+}
+
+/* shimmer diagonal overlay */
+.card::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(45deg, rgba(212,168,75,0.1) 0%, rgba(212,168,75,0.3) 50%, rgba(212,168,75,0.1) 100%);
+  transform: translateX(-100%) translateY(-100%);
+  pointer-events: none;
+  animation: shimmer 2s linear infinite;
+  border-radius:20px;
+}
+@keyframes shimmer {
+  0% { transform: translateX(-100%) translateY(-100%); }
+  100% { transform: translateX(100%) translateY(100%); }
 }
 
 .logo-container { display:flex; justify-content:center; margin-bottom:16px; }
@@ -118,7 +137,7 @@ body {
 /* ---------------- NFC ICON ---------------- */
 .nfc-icon {
   position:absolute;
-  bottom:-10px; /* slightly below card edge */
+  bottom:-5px; /* moved up slightly */
   right:16px;
   width:45px;
   height:45px;
