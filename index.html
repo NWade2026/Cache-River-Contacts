@@ -49,19 +49,16 @@ body { font-family:'Outfit',sans-serif; background:var(--bg-primary); padding:16
 .card-shimmer {
   position:absolute;
   top:0;
-  left:-150%;
+  left:-100%;
   width:50%;
   height:100%;
-  background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
-  transform: skewX(-25deg);
+  background: linear-gradient(120deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%);
+  transform: skewX(-20deg);
   animation: shimmer 2s infinite;
   pointer-events:none;
   z-index:1;
 }
-@keyframes shimmer {
-  0% { left:-150%; }
-  100% { left:150%; }
-}
+@keyframes shimmer { 0% { left:-100%; } 100% { left:200%; } }
 .card > * { position:relative; z-index:2; }
 
 /* LOGO & PHOTO */
@@ -105,9 +102,9 @@ body { font-family:'Outfit',sans-serif; background:var(--bg-primary); padding:16
 /* NFC ICON */
 .nfc-icon {
   position:absolute;
-  bottom:16px; /* bring it inside card */
+  bottom:12px; /* anchor near bottom */
   right:16px;
-  width:45px; /* slightly smaller */
+  width:45px;
   height:45px;
   background:var(--accent);
   border-radius:50%;
