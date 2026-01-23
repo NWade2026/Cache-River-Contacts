@@ -1,279 +1,246 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#074975">
-  <meta name="description" content="Contact Matthew Corbello at Cache River Mill & MetalWorks">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#074975" />
+  <meta name="description" content="Contact Matthew Corbello at Cache River Mill & MetalWorks" />
   <title>Matthew Corbello | Cache River Mill & MetalWorks</title>
-  <link rel="icon" type="image/x-icon" href="../favicon.ico">
-  <link rel="apple-touch-icon" href="../logo.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/x-icon" href="../favicon.ico" />
+  <link rel="apple-touch-icon" href="../logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
-    :root {
-      --bg-primary: #052038;
-      --bg-card: #074975;
-      --bg-card-inner: #0a5a8a;
-      --text-primary: #ffffff;
-      --text-secondary: rgba(255, 255, 255, 0.75);
-      --accent: #D4A84B;
-      --accent-hover: #E0BB65;
-      --accent-glow: rgba(212, 168, 75, 0.2);
-      --btn-secondary: rgba(255, 255, 255, 0.15);
-      --btn-secondary-hover: rgba(255, 255, 255, 0.25);
-      --btn-secondary-text: #ffffff;
-      --border-subtle: rgba(255, 255, 255, 0.12);
-      --shadow-card: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      --noise-opacity: 0.015;
+    :root{
+      --bg-primary:#052038;
+      --bg-card:#074975;
+      --bg-card-inner:#0a5a8a;
+      --text-primary:#ffffff;
+      --accent:#D4A84B;
+      --border-subtle:rgba(255,255,255,.12);
+      --shadow-card:0 25px 50px -12px rgba(0,0,0,.5);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    html, body { height: 100%; overflow: hidden; }
-
-    body {
-      font-family: 'Outfit', sans-serif;
-      background: var(--bg-primary);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+    *{ box-sizing:border-box; margin:0; padding:0; }
+    html,body{ width:100%; overflow-x:hidden; }
+    body{
+      font-family:'Outfit',sans-serif;
+      background:var(--bg-primary);
+      padding:16px;
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:flex-start;
+      min-height:100vh;
     }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      opacity: var(--noise-opacity);
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+    /* ---------------- FADE ---------------- */
+    .fade-element{
+      opacity:0;
+      transform:translateY(20px);
+      transition: opacity .8s ease, transform .8s ease;
+    }
+    .fade-element.visible{
+      opacity:1;
+      transform:translateY(0);
     }
 
-    .card {
-      position: relative;
-      width: 100%;
-      max-width: 380px;
-      background: var(--bg-card);
-      border-radius: 20px;
-      padding: 24px 24px;
-      box-shadow: var(--shadow-card);
-      border: 1px solid var(--border-subtle);
-      overflow: hidden;
-      animation: cardReveal 0.6s ease-out;
+    /* ---------------- CONTACT CARD ---------------- */
+    .card{
+      width:100%;
+      max-width:380px;
+      background:var(--bg-card);
+      border-radius:20px;
+      padding:24px;
+      border:1px solid var(--border-subtle);
+      box-shadow:var(--shadow-card);
+      margin-bottom:24px;
+      position:relative;
+      overflow:hidden; /* keeps shimmer inside card */
     }
 
-    @keyframes cardReveal {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    /* shimmer (card only) */
+    .card::before{
+      content:'';
+      position:absolute;
+      inset:0;
+      background:linear-gradient(
+        135deg,
+        rgba(212,168,75,0.04) 0%,
+        rgba(212,168,75,0.16) 50%,
+        rgba(212,168,75,0.04) 100%
+      );
+      transform:translate(-100%, -100%);
+      animation: shimmer 4s infinite;
+      pointer-events:none;
+      z-index:0;
+    }
+    @keyframes shimmer{
+      from{ transform:translate(-100%, -100%); }
+      to  { transform:translate(100%, 100%); }
+    }
+    .card > *{ position:relative; z-index:1; }
+
+    .logo-container{ display:flex; justify-content:center; margin-bottom:16px; }
+    .logo{ height:32px; width:auto; }
+
+    .photo-container{ display:flex; justify-content:center; margin-bottom:12px; }
+    .photo{
+      width:80px;
+      height:80px;
+      border-radius:50%;
+      object-fit:cover;
+      border:3px solid var(--accent);
+      background:var(--bg-card-inner);
     }
 
-    .card::before {
-      content: "";
-      position: absolute;
-      top: -50%; left: -50%;
-      width: 200%; height: 200%;
-      background: radial-gradient(circle at 30% 20%, var(--accent-glow) 0%, transparent 50%);
-      pointer-events: none;
+    .header{ text-align:center; margin-bottom:16px; }
+    .name{ font-size:1.5rem; font-weight:700; color:var(--text-primary); }
+    .title{ font-size:.85rem; color:var(--accent); }
+
+    .divider{
+      height:1px;
+      background:linear-gradient(90deg,transparent,var(--accent),transparent);
+      margin:16px -24px;
     }
 
-    .content { position: relative; z-index: 1; }
+    /* ---------------- BUTTONS ---------------- */
+    .actions{ display:flex; flex-direction:column; gap:8px; }
+    .btn{
+      padding:12px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-size:.9rem;
+      font-weight:600;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      border:1px solid var(--border-subtle);
+      transition:transform .12s ease, background .2s ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:active{ transform:scale(.98); }
 
-    .logo-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 16px;
-      animation: fadeIn 0.6s ease-out 0.1s both;
+    .btn-contact{ background:var(--accent); color:#1a1a1a; border:none; }
+    .btn-secondary{ background:rgba(255,255,255,.15); color:#fff; }
+    .btn-secondary:hover{ background:rgba(255,255,255,.22); }
+
+    .website-link{
+      display:block;
+      text-align:center;
+      margin-top:16px;
+      color:var(--accent);
+      text-decoration:none;
+      font-weight:500;
     }
 
-    .logo { height: 32px; width: auto; }
-
-    .photo-container {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 12px;
-      animation: fadeIn 0.6s ease-out 0.15s both;
+    /* ---------------- NFC ICON ---------------- */
+    .nfc-icon{
+      position:absolute;
+      bottom:-4px; /* raised a bit */
+      right:16px;
+      width:45px;
+      height:45px;
+      background:var(--accent);
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-weight:700;
+      color:#1a1a1a;
+      box-shadow:0 0 12px var(--accent);
+      animation:pulse 1.5s infinite;
+      cursor:pointer;
+      z-index:3;
+      overflow:hidden;
+      user-select:none;
     }
 
-    .photo {
-      width: 80px; height: 80px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 3px solid var(--accent);
-      box-shadow: 0 8px 24px -8px rgba(0, 0, 0, 0.4);
-      background: var(--bg-card-inner);
+    @keyframes pulse{
+      0%{ transform:scale(.85); opacity:.6; }
+      50%{ transform:scale(1.15); opacity:1; }
+      100%{ transform:scale(.85); opacity:.6; }
     }
 
-    .photo-container:has(img[data-failed="true"]) { display: none; }
-
-    .header {
-      text-align: center;
-      margin-bottom: 16px;
-      animation: fadeIn 0.6s ease-out 0.2s both;
+    .nfc-check{
+      position:absolute;
+      inset:0;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      font-size:26px;
+      color:#FFD700;
+      opacity:0;
+      transform:scale(0);
+      transition:.3s ease;
+      pointer-events:none;
+      text-shadow:0 0 8px #FFD700;
+    }
+    .nfc-check.show{
+      opacity:1;
+      transform:scale(1.2);
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .name {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text-primary);
-      letter-spacing: -0.02em;
-      margin-bottom: 4px;
-    }
-
-    .title {
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: var(--accent);
-      letter-spacing: 0.02em;
-    }
-
-    .divider {
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--border-subtle), var(--accent), var(--border-subtle), transparent);
-      margin: 0 -24px 16px;
-      animation: fadeIn 0.6s ease-out 0.25s both;
-    }
-
-    .actions { display: flex; flex-direction: column; gap: 8px; }
-
-    .btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      padding: 12px 16px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-size: 0.9rem;
-      font-weight: 600;
-      letter-spacing: 0.01em;
-      transition: all 0.25s ease;
-      border: 1px solid var(--border-subtle);
-    }
-
-    .btn svg { width: 18px; height: 18px; flex-shrink: 0; transition: transform 0.25s ease; }
-    .btn:hover svg { transform: scale(1.1); }
-    .btn:active { transform: scale(0.96); transition: transform 0.1s ease; }
-
-    .btn-contact {
-      background: var(--accent);
-      color: #1a1a1a;
-      border: none;
-      animation: fadeIn 0.6s ease-out 0.3s both;
-    }
-
-    .btn-contact:hover {
-      background: var(--accent-hover);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px -4px rgba(212, 168, 75, 0.5);
-    }
-
-    .btn-contact:active { transform: scale(0.96); box-shadow: 0 2px 8px -2px rgba(212, 168, 75, 0.4); }
-    .btn-contact svg { fill: #1a1a1a; }
-
-    .btn-secondary {
-      background: var(--btn-secondary);
-      color: var(--btn-secondary-text);
-      animation: fadeIn 0.6s ease-out 0.35s both;
-    }
-
-    .btn-secondary:hover { background: var(--btn-secondary-hover); transform: translateY(-2px); }
-    .btn-secondary svg { fill: var(--text-secondary); }
-    .btn-secondary:nth-child(3) { animation-delay: 0.4s; }
-    .btn-secondary:nth-child(4) { animation-delay: 0.45s; }
-
-    .website-link {
-      display: block;
-      text-align: center;
-      margin-top: 16px;
-      font-size: 0.9rem;
-      font-weight: 500;
-      color: var(--accent);
-      text-decoration: none;
-      transition: opacity 0.2s ease;
-      animation: fadeIn 0.6s ease-out 0.5s both;
-    }
-
-    .website-link:hover {
-      opacity: 0.8;
-    }
-
-    .footer-accent {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--accent), transparent);
-      opacity: 0.6;
+    @media(max-width:600px){
+      .photo{ width:60px; height:60px; }
     }
   </style>
 </head>
 
 <body>
-  <div class="card">
-    <div class="content">
-      <div class="logo-container">
-        <img src="../logo-white.webp" alt="Cache River Mill & MetalWorks" class="logo">
-      </div>
 
-      <div class="photo-container">
-        <img src="photo.jpg" alt="Matthew Corbello" class="photo" onerror="this.dataset.failed='true'; this.style.display='none'; this.parentElement.style.display='none';">
-      </div>
-
-      <div class="header">
-        <h1 class="name">Matthew Corbello</h1>
-        <p class="title">Cache River Mill & MetalWorks</p>
-      </div>
-
-      <div class="divider"></div>
-
-      <div class="actions">
-        <a href="contact.vcf" class="btn btn-contact">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
-            <circle cx="9" cy="7" r="4"/>
-            <line x1="19" y1="8" x2="19" y2="14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <line x1="22" y1="11" x2="16" y2="11" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Add to Contacts
-        </a>
-
-        <a href="tel:15015298723" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-          </svg>
-          Call
-        </a>
-
-        <a href="sms:15015298723" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-          </svg>
-          Text
-        </a>
-
-        <a href="mailto:mcorbello@CacheRiverMill.com" class="btn btn-secondary">
-          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-            <polyline points="22,6 12,13 2,6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          Email
-        </a>
-
-      </div>
-
-      <a href="https://cacherivermill.com" target="_blank" class="website-link">cacherivermill.com</a>
+  <!-- CONTACT CARD -->
+  <div class="card fade-element" id="contact-card">
+    <div class="logo-container">
+      <img src="../logo-white.webp" class="logo" alt="Cache River Mill & MetalWorks" />
     </div>
 
-    <div class="footer-accent"></div>
+    <div class="photo-container" id="photo-container">
+      <img src="photo.jpg" class="photo" alt="Matthew Corbello" onerror="this.parentElement.remove();" />
+    </div>
+
+    <div class="header">
+      <div class="name">Matthew Corbello</div>
+      <div class="title">Cache River Mill & MetalWorks</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="actions">
+      <a href="contact.vcf" class="btn btn-contact">Add to Contacts</a>
+      <a href="tel:15015298723" class="btn btn-secondary">Call</a>
+      <a href="sms:15015298723" class="btn btn-secondary">Text</a>
+      <a href="mailto:mcorbello@CacheRiverMill.com" class="btn btn-secondary">Email</a>
+    </div>
+
+    <a href="https://cacherivermill.com" target="_blank" class="website-link">cacherivermill.com</a>
+
+    <!-- NFC Pulse Icon -->
+    <div class="nfc-icon" id="nfc-icon">
+      NFC
+      <span class="nfc-check" id="nfc-check">âœ“</span>
+    </div>
   </div>
+
+  <script>
+    // Fade in
+    window.addEventListener('load', () => {
+      document.getElementById('contact-card').classList.add('visible');
+    });
+
+    // NFC tap check
+    const nfcIcon = document.getElementById('nfc-icon');
+    const nfcCheck = document.getElementById('nfc-check');
+
+    nfcIcon.addEventListener('click', () => {
+      nfcCheck.classList.add('show');
+      setTimeout(() => nfcCheck.classList.remove('show'), 1000);
+    });
+  </script>
 </body>
 </html>
+
