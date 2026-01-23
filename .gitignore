@@ -6,3 +6,9 @@
 # local backups
 *.bak
 
+
+# local/temp files
+*.bak
+rcCache-River-Contacts
+tatus -sb
+
