@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="refresh" content="0; url=/Cache-River-Contacts/" />
+  <title>Redirecting…</title>
+  <style>
+    body{font-family:Arial,Helvetica,sans-serif;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0;background:#052038;color:#fff;}
+    a{color:#D4A84B;}
+  </style>
+</head>
+<body>
+  <div>
+    Redirecting to the homepage…
+    <a href="/Cache-River-Contacts/">Click here if you are not redirected.</a>
+  </div>
+  <script>
+    (function(){
+      var correctBase = "/Cache-River-Contacts";
+      var path = window.location.pathname || "";
+      var lower = path.toLowerCase();
+      if (lower.indexOf("/cache-river-contacts") === 0 && path.indexOf(correctBase) !== 0) {
+        var rest = path.slice("/cache-river-contacts".length);
+        window.location.replace(correctBase + rest + window.location.search + window.location.hash);
+        return;
+      }
+      window.location.replace(correctBase + "/" + window.location.search + window.location.hash);
+    })();
+  </script>
+</body>
+</html>
