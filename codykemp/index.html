@@ -33,9 +33,11 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
-    html, body { height: 100%; overflow: hidden; }
+    html, body {
+      overflow-y: auto; min-height: 100%; overflow-x: hidden; }
 
     body {
+      overflow-y: auto;
       font-family: 'Outfit', sans-serif;
       background: var(--bg-primary);
       display: flex;
@@ -273,6 +275,7 @@
   </div>
 </body>
 </html>
+
 
 
 
